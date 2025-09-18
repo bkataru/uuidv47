@@ -1,0 +1,20 @@
+name: "Copilot Setup Steps" # Provide a descriptive name for your workflow
+on:
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and extract Zig 0.15.1
+        run: |
+          ZIG_URL=https://ziglang.org/download/0.15.1/zig-x86_64-linux-0.15.1.tar.xz
+          curl -L $ZIG_URL | tar -xJ
+
+      - name: Add Zig to PATH
+        run: |
+          sudo ln -s "$(pwd)/zig-x86_64-linux-0.15.1/zig" /usr/local/bin/zig
+
+      - name: Verify Zig installation
+        run: |
+          zig version
